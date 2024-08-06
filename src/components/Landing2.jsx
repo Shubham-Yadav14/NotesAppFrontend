@@ -3,28 +3,37 @@ import Narrow from "./Common/Narrow";
 import hand from "./Images/point.png";
 import image1 from "./Images/image 2.png";
 import image2 from "./Images/image 3.png";
+import Testimonials from "./Slider";
 
 function Landing2() {
   return (
     <>
       <div className="bg-white">
         <Narrow>
-          <div className="flex pt-10 px-3 gap-10 mb-10 max-xl:gap-5 max-xl:px-1 max-lg:flex-col">
-            <div className="w-5/12 max-lg:w-11/12">
+          {/* <div className="flex pt-10 px-3 gap-10 mb-10 max-xl:gap-5 max-xl:px-1 max-xl:flex-col max-lg:items-center">
+            <div className="w-6/12 max-lg:w-11/12 my-auto" >
               <div className="text-5xl flex justify-between">
-                <div><span className="text-[#5169F6]">Things</span> you can do</div>
-                <img src={hand} alt="Hand" className="w-1/12 ml-5 h-[50px] max-xl:w-2/12 max-xl:ml-1 max-lg:hidden" />
+                <div>
+                  <span className="text-[#5169F6]">Things</span> you can do
+                </div>
               </div>
-              <div className="text-2xl">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsa reprehenderit
-                in iure nihil illo enim accusantium ratione eius dolorem.
+              <div className="text-2xl my-5">
+              It allow users to add, edit, and delete notes with properties such as group, text, and color for categorization and easy identification. Users can filter notes by group or color to quickly find relevant information. Additionally, the system supports drag-and-drop functionality, enabling users to rearrange notes freely within the interface for better organization.
               </div>
             </div>
-            <div className="7/12 relative mr-20 max-lg:mr-40 max-lg:w-9/12 mx-auto">
-              <img src={image1} alt="image1" />
-              <img src={image2} alt="image2" className="relative -top-20 -right-40"/>
+            <div className="w-6/12 relative mr-20  max-lg:w-9/12 max-lg:mx-auto ">
+              <img src={image1} alt="image1" className="w-9/12" />
+              <img
+                src={image2}
+                alt="image2"
+                className="w-9/12 relative -top-20 -right-40 max-md:top-0 max-md:right-0 max-md:mt-5"
+              />
             </div>
+          </div> */}
+          <div className="my-10 overflow-hidden">
+          <Testimonials/>
           </div>
+          
         </Narrow>
       </div>
       <div className="bg-[#1E1E1E] pt-10 overflow-hidden">
