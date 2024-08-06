@@ -6,7 +6,7 @@ import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const App = () => {
-  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
 
   const [notes, setNotes] = useState([]);
   const [noteToEdit, setNoteToEdit] = useState(null);
@@ -26,10 +26,7 @@ const App = () => {
   };
 
   const updateNote = async (id, updatedNote) => {
-    const response = await axios.put(
-      `http://localhost:5000/api/notes/${id}`,
-      updatedNote
-    );
+    const response = await axios.put(`http://localhost:5000/api/notes/${id}`, updatedNote);
     setNotes(notes.map((note) => (note._id === id ? response.data : note)));
   };
 
@@ -59,9 +56,7 @@ const App = () => {
   return (
     <div className="App">
       {!isAuthenticated && (
-        <button onClick={(e) => loginWithRedirect()}>
-          Login with Redirect
-        </button>
+        <button onClick={(e) => loginWithRedirect()}>Login with Redirect</button>
       )}
       {isAuthenticated && (
         <>

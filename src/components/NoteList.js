@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import Note from './Note';
-import Narrow from './Common/Narrow';
+import React, { useEffect, useState } from "react";
+import Note from "./Note";
+import Narrow from "./Common/Narrow";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const NoteList = ({ notes, onDelete, onEdit, onDragEnd }) => {
   const { user, isAuthenticated } = useAuth0();
   const [filteredNotes, setFilteredNotes] = useState([]);
-  const [selectedColor, setSelectedColor] = useState('');
-  const [groupFilter, setGroupFilter] = useState('');
+  const [selectedColor, setSelectedColor] = useState("");
+  const [groupFilter, setGroupFilter] = useState("");
+  const [groupByData, setGroupByData] = useState([]);
+  const [selectedGroupBy, setSelectedGroupBy] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      let filtered = notes.filter(note => note.email === user.email);
+      let filtered = notes.filter((note) => note.email === user.email);
 
       if (selectedColor) {
-        filtered = filtered.filter(note => note.color === selectedColor);
+        filtered = filtered.filter((note) => note.color === selectedColor);
       }
 
       if (groupFilter) {
-        filtered = filtered.filter(note => note.group.toLowerCase().includes(groupFilter.toLowerCase()));
+        filtered = filtered.filter((note) =>
+          note.group.toLowerCase().includes(groupFilter.toLowerCase())
+        );
       }
 
       setFilteredNotes(filtered);
@@ -31,6 +35,34 @@ const NoteList = ({ notes, onDelete, onEdit, onDragEnd }) => {
 
   const handleGroupChange = (event) => {
     setGroupFilter(event.target.value);
+  };
+
+  const handleGroupBy = () => {
+    if (!selectedGroupBy) {
+      const groupedData = filteredNotes.reduce((acc, note) => {
+        if (!acc[note.group]) {
+          acc[note.group] = {
+            count: 0,
+            notes: [],
+          };
+        }
+        acc[note.group].count += 1;
+        acc[note.group].notes.push(note);
+        return acc;
+      }, {});
+
+      const groupedArray = Object.keys(groupedData).map((group) => ({
+        group,
+        count: groupedData[group].count,
+        notes: groupedData[group].notes,
+      }));
+
+      console.log(groupedArray);
+      setGroupByData(groupedArray);
+      setSelectedGroupBy(true);
+    } else {
+      setSelectedGroupBy(false);
+    }
   };
 
   console.log("Filtered Notes:", filteredNotes); // Debugging log
@@ -54,19 +86,41 @@ const NoteList = ({ notes, onDelete, onEdit, onDragEnd }) => {
           onChange={handleGroupChange}
           className="p-2 m-2 border"
         />
-      </div>
 
-      <div className="flex flex-wrap">
-        {filteredNotes.map(note => (
-          <Note
-            key={note._id}
-            note={note}
-            onDelete={onDelete}
-            onEdit={onEdit}
-            onDragEnd={onDragEnd}
-          />
-        ))}
+        <button className="border p-2 rounded-md" onClick={handleGroupBy}>
+          Group Notes
+        </button>
       </div>
+      {selectedGroupBy !== true ? (
+        <div className="flex flex-wrap">
+          {filteredNotes.map((note) => (
+            <Note
+              key={note._id}
+              note={note}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              onDragEnd={onDragEnd}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex">
+          {groupByData.map((group) => (
+            <div key={group.group} className="border-2 m-3 p-3 w-auto">
+              <h2>{group.group}</h2>
+              {group.notes.map((note) => (
+                <Note
+                  key={note._id}
+                  note={note}
+                  onDelete={onDelete}
+                  onEdit={onEdit}
+                  onDragEnd={onDragEnd}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
     </Narrow>
   );
 };
