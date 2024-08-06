@@ -16,22 +16,22 @@ const App = () => {
   }, []);
 
   const fetchNotes = async () => {
-    const response = await axios.get("http://localhost:5000/api/notes");
+    const response = await axios.get(`${process.env.BACKEND_PATH}/api/notes`);
     setNotes(response.data);
   };
 
   const addNote = async (note) => {
-    const response = await axios.post("http://localhost:5000/api/notes", note);
+    const response = await axios.post(`${process.env.BACKEND_PATH}/api/notes`, note);
     setNotes([...notes, response.data]);
   };
 
   const updateNote = async (id, updatedNote) => {
-    const response = await axios.put(`http://localhost:5000/api/notes/${id}`, updatedNote);
+    const response = await axios.put(`${process.env.BACKEND_PATH}/api/notes/${id}`, updatedNote);
     setNotes(notes.map((note) => (note._id === id ? response.data : note)));
   };
 
   const deleteNote = async (id) => {
-    await axios.delete(`http://localhost:5000/api/notes/${id}`);
+    await axios.delete(`${process.env.BACKEND_PATH}/api/notes/${id}`);
     setNotes(notes.filter((note) => note._id !== id));
   };
 
