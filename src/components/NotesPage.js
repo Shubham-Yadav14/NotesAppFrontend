@@ -5,12 +5,18 @@ import NoteList from "../components/NoteList";
 import { useAuth0 } from "@auth0/auth0-react";
 import Narrow from "./Common/Narrow";
 import Navbar from "./Common/NotesNavbar";
+import Note from "./Note";
+import Avatar from "../components/Images/Avatar.png";
 
 export default function NotesPage() {
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
 
   const [notes, setNotes] = useState([]);
   const [noteToEdit, setNoteToEdit] = useState(null);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [showNoteModal, setShowNoteModal] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [noteIdToDelete, setNoteIdToDelete] = useState(null);
 
   useEffect(() => {
     fetchNotes();
@@ -41,6 +47,7 @@ export default function NotesPage() {
 
   const handleEdit = (note) => {
     setNoteToEdit(note);
+    setShowNoteModal(true); // Show the note modal when a note is clicked
   };
 
   const handleSave = (note) => {
@@ -50,6 +57,7 @@ export default function NotesPage() {
       addNote(note);
     }
     setNoteToEdit(null);
+    setShowNoteModal(false); // Close the modal after saving
   };
 
   const handleDragEnd = (id, position) => {
@@ -57,25 +65,202 @@ export default function NotesPage() {
     updateNote(id, { ...note, position });
   };
 
+  const handleColorSelect = (color) => {
+    const defaultNote = {
+      title: 'New Note',
+      content: 'This is a default note',
+      color: `bg-${color}`,
+      group: 'New Note',
+      text:'Add text of your choice here..',
+      email: user.email
+    };
+    addNote(defaultNote);
+  };
+
+  const [filteredNotes, setFilteredNotes] = useState([]);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [groupFilter, setGroupFilter] = useState("");
+  const [groupByData, setGroupByData] = useState([]);
+  const [selectedGroupBy, setSelectedGroupBy] = useState(false);
+
+  const handleGroupChange = (event) => {
+    setGroupFilter(event.target.value);
+  };
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      let filtered = notes.filter((note) => note.email === user.email);
+
+      if (selectedColor) {
+        filtered = filtered.filter((note) => note.color === selectedColor);
+      }
+
+      if (groupFilter) {
+        filtered = filtered.filter((note) =>
+          note.group.toLowerCase().includes(groupFilter.toLowerCase())
+        );
+      }
+
+      setFilteredNotes(filtered);
+    }
+  }, [user, notes, selectedColor, groupFilter, isAuthenticated]);
+
+  const [darkMode, setDarkMode] = useState(false);
+  const handleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const handleAvatarClick = () => {
+    setShowUserModal(!showUserModal);
+  };
+
+  const onDelete = (id) => {
+    setNoteIdToDelete(id);
+    setShowConfirmationModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    deleteNote(noteIdToDelete);
+    setShowConfirmationModal(false);
+    setNoteIdToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmationModal(false);
+    setNoteIdToDelete(null);
+  };
+
   return (
     <div>
       <div className="flex">
-        <div className="px-10 border-r-2">
-        <Navbar></Navbar>
+        <div className={`px-10 border-r-2 ${darkMode ? "bg-black":""}`}>
+          <Navbar darkMode={darkMode} onColorSelect={handleColorSelect} />
         </div>
-        <div className="w-full">
-        <Narrow>
-          <button onClick={(e) => logout()}>Logout</button>
-          <NoteForm onSave={handleSave} noteToEdit={noteToEdit} />
-        </Narrow>
-        <NoteList
-          notes={notes}
-          onDelete={deleteNote}
-          onEdit={handleEdit}
-          onDragEnd={handleDragEnd}
-        />
+        <div className={`w-full ${darkMode ? "bg-[#1E1E1E]":"bg-gray-100"}`}>
+          <Narrow>
+            <div className="flex justify-between mb-5 mt-5">
+              <div className="w-full pr-5">
+                <input
+                  type="text"
+                  placeholder="Search by Group"
+                  value={groupFilter}
+                  onChange={handleGroupChange}
+                  className={`p-2 m-2 border w-full rounded-xl ${darkMode ? "bg-black text-gray-100 border-gray-100":""}`}
+                />
+              </div>
+              <div className="flex gap-2 relative">
+                <button onClick={handleDarkMode}>
+                  <img
+                    src={`https://img.icons8.com/?size=100&id=54382&format=png&color=${darkMode ? "ffffff":"000000"}`}
+                    className="h-[40px] my-auto"
+                    alt=""
+                  />
+                </button>
+                <button onClick={handleAvatarClick}>
+                  <img className={`h-[60px] ${darkMode ? "bg-[#1E1E1E]":"bg-gray-100"}`} src={Avatar} alt="" />
+                </button>
+                {showUserModal && (
+                  <div className="absolute right-0 top-full mt-2 w-[20vw] bg-white dark:bg-gray-400 border rounded-lg shadow-lg p-4">
+                    <div className="flex items-center mb-3">
+                      <img
+                        className="h-12 w-12 rounded-full"
+                        src={user.picture}
+                        alt={user.name}
+                      />
+                      <div className="ml-3">
+                        <p className="text-sm font-semibold">{user.name}</p>
+                        <p className="text-xs text-black ">{user.email}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => logout()}
+                      className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            {selectedGroupBy !== true ? (
+              <div className="flex flex-wrap">
+                {filteredNotes.map((note) => (
+                  <Note
+                    key={note._id}
+                    note={note}
+                    onDelete={() => onDelete(note._id)}
+                    onEdit={() => handleEdit(note)}
+                    onDragEnd={handleDragEnd}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex">
+                {groupByData.map((group) => (
+                  <div key={group.group} className="border-2 m-3 p-3 w-auto">
+                    <h2>{group.group}</h2>
+                    {group.notes.map((note) => (
+                      <Note
+                        key={note._id}
+                        note={note}
+                        onDelete={() => onDelete(note._id)}
+                        onEdit={() => handleEdit(note)}
+                        onDragEnd={handleDragEnd}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+          </Narrow>
         </div>
       </div>
+
+      {/* Note Modal */}
+      {showNoteModal && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+          <div className={`${darkMode ? "bg-gray-200":"bg-gray-900"} p-6 rounded-lg shadow-lg flex w-[80vw] h-[80vh]`}>
+            <div className="w-1/2 p-1">
+              <h2 className={`${darkMode ? "":"text-white"} text-xl font-bold mb-4`}>Note Details</h2>
+              <div className={` ${darkMode ? "":"border-white"} border border-black p-4 rounded-lg h-[90%] overflow-auto`}>
+                <p className="text-lg font-semibold mb-2">{noteToEdit.title}</p>
+                <p className="text-gray-600 mb-2">{noteToEdit.content}</p>
+                {/* Add more fields as needed */}
+                <p className={`text-xl ${darkMode ? "":"text-white"}`}>Group: {noteToEdit.group}</p>
+                <p className={`text-xl ${darkMode ? "":"text-white"}`}>Color: {noteToEdit.color}</p>
+              </div>
+            </div>
+            <div className="w-1/2 p-4">
+              <h2 className="text-xl font-bold mb-4">Edit Note</h2>
+              <NoteForm onSave={handleSave} noteToEdit={noteToEdit} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal */}
+      {showConfirmationModal && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+          <div className={`${darkMode ? "bg-gray-200" : "bg-gray-900"} p-6 rounded-lg shadow-lg`}>
+            <h2 className={`${darkMode ? "" : "text-white"} text-xl font-bold mb-4`}>Confirm Deletion</h2>
+            <p className={`${darkMode ? "" : "text-white"} mb-4`}>Are you sure you want to delete this note?</p>
+            <div className="flex justify-end">
+              <button
+                onClick={handleCancelDelete}
+                className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmDelete}
+                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
