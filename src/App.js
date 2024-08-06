@@ -4,6 +4,7 @@ import NoteForm from "./components/NoteForm";
 import NoteList from "./components/NoteList";
 import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import Landing from "./components/Landing";
 
 const App = () => {
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
@@ -16,22 +17,22 @@ const App = () => {
   }, []);
 
   const fetchNotes = async () => {
-    const response = await axios.get(`${process.env.BACKEND_PATH}/api/notes`);
+    const response = await axios.get("http://localhost:5000/api/notes");
     setNotes(response.data);
   };
 
   const addNote = async (note) => {
-    const response = await axios.post(`${process.env.BACKEND_PATH}/api/notes`, note);
+    const response = await axios.post("http://localhost:5000/api/notes", note);
     setNotes([...notes, response.data]);
   };
 
   const updateNote = async (id, updatedNote) => {
-    const response = await axios.put(`${process.env.BACKEND_PATH}/api/notes/${id}`, updatedNote);
+    const response = await axios.put(`http://localhost:5000/api/notes/${id}`, updatedNote);
     setNotes(notes.map((note) => (note._id === id ? response.data : note)));
   };
 
   const deleteNote = async (id) => {
-    await axios.delete(`${process.env.BACKEND_PATH}/api/notes/${id}`);
+    await axios.delete(`http://localhost:5000/api/notes/${id}`);
     setNotes(notes.filter((note) => note._id !== id));
   };
 
@@ -56,7 +57,7 @@ const App = () => {
   return (
     <div className="App">
       {!isAuthenticated && (
-        <button onClick={(e) => loginWithRedirect()}>Login with Redirect</button>
+        <Landing/>
       )}
       {isAuthenticated && (
         <>
