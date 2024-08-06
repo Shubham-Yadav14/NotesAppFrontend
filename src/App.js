@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Landing from "./components/Landing";
+import Landing from "./components/Landing";
 import NotesPage from "./components/NotesPage";
 import "./App.css";
 import Landing2 from "./components/Landing2";

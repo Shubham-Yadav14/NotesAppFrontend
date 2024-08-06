@@ -37,5 +37,5 @@ body{
   #shinchan{
     background-image: url(./components/Images/image.jpg);
     background-size: cover;
-    background-position: bottom ;
+    background-position: center;
   }
