@@ -1,0 +1,25 @@
+
+.Narrow {
+    width: 100%;
+    max-width: 1450px;
+    padding: 0 0px;
+    margin: auto;
+  }
+  
+  @media screen and (max-width: 450px) {
+    .Narrow {
+      max-width: 100vw;
+    }
+  }
+  
+  @media screen and (max-width: 1600px) {
+    .Narrow {
+      max-width: 85vw;
+    }
+  }
+  
+  @media screen and (max-width: 765px) {
+    .Narrow {
+      max-width: 680px;
+    }
+  }
