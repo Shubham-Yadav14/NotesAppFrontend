@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Narrow from "../components/Common/Narrow";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NoteForm = ({ onSave, noteToEdit }) => {
+  const { user, isAuthenticated } = useAuth0();
+
   const [note, setNote] = useState(
     noteToEdit || {
+      email: isAuthenticated ? user.email : "",
       group: "",
       text: "",
       color: "bg-blue-500",
@@ -27,8 +31,12 @@ const NoteForm = ({ onSave, noteToEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(note);
+    onSave({
+      ...note,
+      email: isAuthenticated ? user.email : note.email,
+    });
     setNote({
+      email: isAuthenticated ? user.email : "",
       group: "",
       text: "",
       color: "bg-blue-500",
