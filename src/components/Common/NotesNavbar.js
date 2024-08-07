@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import dustbin from "../Images/dustbin.png";
 
-const Navbar = ({ darkMode, onColorSelect }) => {
+const Navbar = ({ darkMode, onColorSelect,handleTrash }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const colors = [
     'bg-red-300', 'bg-green-300', 'bg-purple-300', 'bg-blue-300', 
     'bg-[#FFD966]', 'bg-pink-300', 'bg-orange-300'
   ];
+
+  
 
   const handleColorClick = (color) => {
     onColorSelect(color);
@@ -37,7 +39,7 @@ const Navbar = ({ darkMode, onColorSelect }) => {
           ))}
         </div>
         <div className="text-center flex justify-center">
-          <button className='mt-10 '>
+          <button className='mt-10 ' onClick={handleTrash}>
             <img className='h-[50px]' src={dustbin} alt="" />
           </button>
         </div>
