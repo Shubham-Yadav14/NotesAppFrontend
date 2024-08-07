@@ -207,7 +207,7 @@ export default function NotesPage() {
                     </div>
                     <button
                       onClick={() => logout()}
-                      className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+                      className="w-full bg-[#5169F6] hover:bg-[#5169F6] text-white py-2 rounded"
                     >
                       Logout
                     </button>
