@@ -10,9 +10,11 @@ import DMode from "../components/Images/dark-mode.png";
 import LMode from "../components/Images/day-mode.png";
 import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import TrashNote from "./TrashNote";
+import plus from "./Images/plus.png";
 
 export default function NotesPage() {
   const { isAuthenticated, logout, user } = useAuth0();
+  const [isOpen, setIsOpen] = useState(false);
 
   const [notes, setNotes] = useState([]);
   const [noteToEdit, setNoteToEdit] = useState(null);
@@ -35,10 +37,15 @@ export default function NotesPage() {
   }, []);
 
   useEffect(() => {
-    if(!openTrash){
+    if (!openTrash) {
       fetchNotes();
     }
   }, [openTrash]);
+
+
+  useEffect(()=>{
+    console.log(showConfirmationModal)
+  },[showConfirmationModal])
 
   const fetchNotes = async () => {
     const response = await axios.get(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/fetchNotes`);
@@ -183,15 +190,27 @@ export default function NotesPage() {
   return (
     <div>
       <div className="flex">
-        <div className={`px-10 ${darkMode ? "bg-black border-black" : ""}`}>
+        <div className={`px-10 max-md:px-0 ${darkMode ? "bg-black border-black" : ""}`}>
           <Navbar
             darkMode={darkMode}
             onColorSelect={handleColorSelect}
             setTrashEnable={setTrashEnable}
             trashEnable={trashEnable}
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
           />
         </div>
-        <div className={`w-full ${darkMode ? "bg-[#1E1E1E]" : "bg-gray-100"}`}>
+        <button
+          className="fixed hidden bottom-7 right-7 max-md:block z-50 "
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          <div className=" relative rounded-full">
+            <img src={plus} alt="Plus icon" style={{ height: "50px" }} />
+          </div>
+        </button>
+        <div className={`w-full max-md:px-3 ${darkMode ? "bg-[#1E1E1E]" : "bg-gray-100"}`}>
           <Narrow>
             <div className="flex justify-between mb-5 mt-10">
               <div className="w-full pr-5">
@@ -253,7 +272,7 @@ export default function NotesPage() {
                 <option value="bg-blue-300">Blue</option>
                 <option value="bg-[#FFD966]">Yellow</option>
                 <option value="bg-pink-300">Pink</option>
-                <option value="bg-orange-300">Yellow</option>
+                <option value="bg-orange-300">Orange</option>
                 <option value="bg-purple-300">Purple</option>
               </select>
               <button
@@ -262,115 +281,104 @@ export default function NotesPage() {
               >
                 Clear Color Filter
               </button>
-              <button
-                className={`border p-2 rounded-xl ${
-                  darkMode ? "bg-black text-white border-black" : "bg-white"
-                }`}
-                onClick={handleGroupBy}
-              >
-                Group Notes
-              </button>
             </div>
+            <button
+              className={`border p-2 rounded-xl ${
+                darkMode ? "bg-black text-white border-black" : "bg-white"
+              }`}
+              onClick={handleGroupBy}
+            >
+              Group Notes
+            </button>
+
             <div className="flex flex-wrap mt-5">
               {filteredNotes.map((note) => (
                 <Note
                   key={note._id}
                   note={note}
-                  onDelete={() => onDelete(note._id)}
+                  onDelete={onDelete}
                   onEdit={() => handleEdit(note)}
                 />
               ))}
             </div>
           </Narrow>
         </div>
-      </div>
 
-      {/* Note Modal */}
-      {showNoteModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-          <div
-            className={`${
-              darkMode ? "bg-white" : "bg-white"
-            } p-6 rounded-lg shadow-lg flex w-[50vw] h-[50vh]`}
-          >
-            <div className={` w-1/2 p-1 `}>
-              <h2 className={`${darkMode ? "" : ""} text-xl font-bold mb-4`}>Note Details</h2>
-              <div
-                className={`${currentNote?.color || noteToEdit.color} ${
-                  darkMode ? "" : "border-white"
-                } border  p-4 rounded-lg h-[90%] overflow-auto`}
-              >
-                <p className="text-lg font-semibold mb-2">
-                  {currentNote?.title || noteToEdit.title}
-                </p>
-                <p className="text-gray-600 mb-2">{currentNote?.content || noteToEdit.content}</p>
-                <p className={`text-4xl ${darkMode ? "" : ""}`}>
-                  {currentNote?.group || noteToEdit.group}
-                </p>
-                <p className={`text-2xl mt-5 ${darkMode ? "" : ""}`}>
-                  {currentNote?.text || noteToEdit.text}
-                </p>
+        {/* Note Modal */}
+        {showNoteModal && (
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg flex w-[50vw] h-[50vh]">
+              <div className="w-1/2 p-1">
+                <h2 className="text-xl font-bold mb-4">Note Details</h2>
+                <div
+                  className={`${
+                    currentNote?.color || noteToEdit.color
+                  } border p-4 rounded-lg h-[90%] overflow-auto`}
+                >
+                  <p className="text-lg font-semibold mb-2">
+                    {currentNote?.title || noteToEdit.title}
+                  </p>
+                  <p className="text-gray-600 mb-2">{currentNote?.content || noteToEdit.content}</p>
+                  <p className="text-4xl">{currentNote?.group || noteToEdit.group}</p>
+                  <p className="text-2xl mt-5">{currentNote?.text || noteToEdit.text}</p>
+                </div>
+              </div>
+              <div className="w-1/2 p-4">
+                <h2 className="text-xl font-bold mb-4">Edit Note</h2>
+                <NoteForm
+                  onSave={handleSave}
+                  noteToEdit={currentNote}
+                  onInputChange={handleInputChange}
+                />
               </div>
             </div>
-            <div className="w-1/2 p-4">
-              <h2 className="text-xl font-bold mb-4">Edit Note</h2>
-              <NoteForm
-                onSave={handleSave}
-                noteToEdit={currentNote}
-                onInputChange={handleInputChange}
-              />
-            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Confirmation Modal */}
-      {showConfirmationModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-          <div className={`${darkMode ? "bg-gray-200" : "bg-gray-900"} p-6 rounded-lg shadow-lg`}>
-            <h2 className={`${darkMode ? "" : "text-white"} text-xl font-bold mb-4`}>
-              Confirm Deletion
-            </h2>
-            <p className={`${darkMode ? "" : "text-white"} mb-4`}>
-              Are you sure you want to delete this note?
-            </p>
-            <div className="flex justify-end">
-              <button
-                onClick={handleCancelDelete}
-                className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded mr-2"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleConfirmDelete}
-                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-              >
-                Delete
-              </button>
+        {/* Confirmation Modal */}
+        {showConfirmationModal && (
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div className="bg-gray-200 p-6 rounded-lg shadow-lg">
+              <h2 className="text-xl font-bold mb-4">Confirm Deletion</h2>
+              <p className="mb-4">Are you sure you want to delete this note?</p>
+              <div className="flex justify-end">
+                <button
+                  onClick={handleCancelDelete}
+                  className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded mr-2"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirmDelete}
+                  className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <Modal
-        open={openTrash}
-        onClose={() => {
-          setTrashEnable(false);
-        }}
-      >
-        <ModalDialog style={{ width: "80vw" }}>
-          <ModalClose style={{ zIndex: "10" }} />
-          <div className="text-center text-5xl" >Trashed Notes</div>
-          <div className="flex flex-wrap mt-5">
-            {trash.map((note) => (
-              <TrashNote
-                key={note._id}
-                note={note}
-                onDelete={onRemove} // Pass the onRemove function directly
-              />
-            ))}
-          </div>
-        </ModalDialog>
-      </Modal>
+        )}
+        <Modal
+          open={openTrash}
+          onClose={() => {
+            setTrashEnable(false);
+          }}
+        >
+          <ModalDialog style={{ width: "80vw" }}>
+            <ModalClose style={{ zIndex: "10" }} />
+            <div className="text-center text-5xl">Trashed Notes</div>
+            <div className="flex flex-wrap mt-5">
+              {trash.map((note) => (
+                <TrashNote
+                  key={note._id}
+                  note={note}
+                  onDelete={onRemove} // Pass the onRemove function directly
+                />
+              ))}
+            </div>
+          </ModalDialog>
+        </Modal>
+      </div>
     </div>
   );
 }

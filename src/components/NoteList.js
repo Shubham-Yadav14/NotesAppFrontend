@@ -40,10 +40,7 @@ export default function NotesPage() {
   };
 
   const updateNote = async (id, updatedNote) => {
-    const response = await axios.put(
-      `http://localhost:5000/api/notes/${id}`,
-      updatedNote
-    );
+    const response = await axios.put(`http://localhost:5000/api/notes/${id}`, updatedNote);
     setNotes(notes.map((note) => (note._id === id ? response.data : note)));
   };
 
@@ -65,11 +62,6 @@ export default function NotesPage() {
     }
     setNoteToEdit(null);
     setShowNoteModal(false);
-  };
-
-  const handleDragEnd = (id, position) => {
-    const note = notes.find((note) => note._id === id);
-    updateNote(id, { ...note, position });
   };
 
   const handleColorSelect = (color) => {
@@ -210,9 +202,7 @@ export default function NotesPage() {
                 </button>
                 <button onClick={handleAvatarClick}>
                   <img
-                    className={`h-[60px] ${
-                      darkMode ? "bg-[#1E1E1E]" : "bg-gray-100"
-                    }`}
+                    className={`h-[60px] ${darkMode ? "bg-[#1E1E1E]" : "bg-gray-100"}`}
                     src={Avatar}
                     alt=""
                   />
@@ -220,11 +210,7 @@ export default function NotesPage() {
                 {showUserModal && (
                   <div className="absolute right-0 top-full mt-2 w-[20vw] bg-white dark:bg-gray-400 border rounded-lg shadow-lg p-4">
                     <div className="flex items-center mb-3">
-                      <img
-                        className="h-12 w-12 rounded-full"
-                        src={user.picture}
-                        alt={user.name}
-                      />
+                      <img className="h-12 w-12 rounded-full" src={user.picture} alt={user.name} />
                       <div className="ml-3">
                         <p className="text-sm font-semibold">{user.name}</p>
                         <p className="text-xs text-black ">{user.email}</p>
@@ -243,13 +229,13 @@ export default function NotesPage() {
             <div className="flex justify-between mb-5 mt-5">
               <button
                 className="bg-blue-500 text-white p-2 rounded-md"
-                onClick={() => setGroupFilter('')}
+                onClick={() => setGroupFilter("")}
               >
                 Clear Group Filter
               </button>
               <button
                 className="bg-blue-500 text-white p-2 rounded-md"
-                onClick={() => setSelectedColor('')}
+                onClick={() => setSelectedColor("")}
               >
                 Clear Color Filter
               </button>
@@ -262,7 +248,6 @@ export default function NotesPage() {
                     note={note}
                     onDelete={() => onDelete(note._id)}
                     onEdit={() => handleEdit(note)}
-                    onDragEnd={handleDragEnd}
                   />
                 ))}
               </div>
@@ -277,7 +262,6 @@ export default function NotesPage() {
                         note={note}
                         onDelete={() => onDelete(note._id)}
                         onEdit={() => handleEdit(note)}
-                        onDragEnd={handleDragEnd}
                       />
                     ))}
                   </div>
@@ -310,9 +294,7 @@ export default function NotesPage() {
                 <p className={`text-xl ${darkMode ? "" : "text-white"}`}>
                   Group: {noteToEdit.group}
                 </p>
-                <p className={`text-xl ${darkMode ? "" : "text-white"}`}>
-                  Text: {noteToEdit.text}
-                </p>
+                <p className={`text-xl ${darkMode ? "" : "text-white"}`}>Text: {noteToEdit.text}</p>
                 <p className={`text-xl ${darkMode ? "" : "text-white"}`}>
                   Color: {noteToEdit.color}
                 </p>
@@ -329,11 +311,7 @@ export default function NotesPage() {
       {/* Confirmation Modal */}
       {showConfirmationModal && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-          <div
-            className={`${
-              darkMode ? "bg-gray-200" : "bg-gray-900"
-            } p-6 rounded-lg shadow-lg`}
-          >
+          <div className={`${darkMode ? "bg-gray-200" : "bg-gray-900"} p-6 rounded-lg shadow-lg`}>
             <h2 className={`${darkMode ? "" : "text-white"} text-xl font-bold mb-4`}>
               Confirm Deletion
             </h2>

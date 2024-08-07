@@ -1,7 +1,8 @@
+import zIndex from "@mui/material/styles/zIndex";
 import React from "react";
 import Draggable from "react-draggable";
 
-const Note = ({ note, onDelete, onEdit, onDragEnd }) => {
+const Note = ({ note, onDelete, onEdit}) => {
   
 
   return (
