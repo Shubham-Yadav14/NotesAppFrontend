@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import logo from "./Images/logo.png";
 
 function Navbar() {
-    const { loginWithRedirect, isAuthenticated, logout , loginWithPopup } = useAuth0();
+    const { loginWithPopup } = useAuth0();
     return (
         <div className=' bg-black p-6'>
             <div className='container mx-auto flex justify-between items-center'>

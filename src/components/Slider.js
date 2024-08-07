@@ -32,7 +32,7 @@ export default function Testimonials() {
                   }`}
                 >
                   <p className=" mb-2 font-semibold text-4xl">
-                    Things you can do -
+                  <span style={{ color:'#5169F6' }}>Things</span> you can do
                   </p>
                   <p className="mb-3">
                     Users can add notes under various groups and colors with a drag and drop feature
@@ -45,10 +45,10 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div className="w-8/12 max-lg:w-full mx-3">
+              <div className="w-7/12 max-lg:w-full mx-3">
                 <img
                   src={image1}
-                  className={`h-[70vh] ${animate ? "" : "slide-in-testimonials"}`}
+                  className={`h-[50vh] ${animate ? "" : "slide-in-testimonials"}`}
                 />
               </div>
             </div>
@@ -62,7 +62,7 @@ export default function Testimonials() {
                   }`}
                 >
                   <p className=" mb-2 font-semibold text-4xl">
-                    Things you can do -
+                  <span style={{ color:'#5169F6' }}>Things</span> you can do -
                   </p>
                   <p className=" mb-3">
                     Users can select any card and can edit the group, color to which they belong
@@ -76,10 +76,10 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div className="w-8/12 max-lg:w-full mx-3">
+              <div className="w-7/12 max-lg:w-full mx-3">
                 <img
                   src={image2}
-                  className={`h-[70vh] ${animate ? "" : "slide-in-testimonials"}`}
+                  className={`h-[50vh] ${animate ? "" : "slide-in-testimonials"}`}
                 />
               </div>
             </div>
