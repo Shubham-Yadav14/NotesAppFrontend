@@ -281,8 +281,7 @@ export default function NotesPage() {
               >
                 Clear Color Filter
               </button>
-            </div>
-            <button
+              <button
               className={`border p-2 rounded-xl ${
                 darkMode ? "bg-black text-white border-black" : "bg-white"
               }`}
@@ -290,6 +289,8 @@ export default function NotesPage() {
             >
               Group Notes
             </button>
+            </div>
+            
 
             <div className="flex flex-wrap mt-5">
               {filteredNotes.map((note) => (
