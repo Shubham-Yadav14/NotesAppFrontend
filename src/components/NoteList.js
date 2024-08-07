@@ -77,7 +77,7 @@ export default function NotesPage() {
       title: "New Note",
       content: "This is a default note",
       color: `bg-${color}`,
-      group: "New Note",
+      group: "Untitled Note",
       text: "Add text of your choice here..",
       email: user.email,
     };

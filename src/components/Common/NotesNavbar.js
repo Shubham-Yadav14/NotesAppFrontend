@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dustbin from "../Images/dustbin.png";
 
-const Navbar = ({ darkMode, onColorSelect,handleTrash }) => {
+const Navbar = ({ darkMode, onColorSelect,trashEnable,setTrashEnable }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const colors = [
@@ -39,7 +39,7 @@ const Navbar = ({ darkMode, onColorSelect,handleTrash }) => {
           ))}
         </div>
         <div className="text-center flex justify-center">
-          <button className='mt-10 ' onClick={handleTrash}>
+          <button className='mt-10 ' onClick={()=>{setTrashEnable(!trashEnable);}}>
             <img className='h-[50px]' src={dustbin} alt="" />
           </button>
         </div>

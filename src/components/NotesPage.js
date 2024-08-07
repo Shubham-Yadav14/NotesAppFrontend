@@ -8,9 +8,11 @@ import Navbar from "./Common/NotesNavbar";
 import Avatar from "../components/Images/Avatar.png";
 import DMode from "../components/Images/dark-mode.png";
 import LMode from "../components/Images/day-mode.png";
+import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
+import TrashNote from "./TrashNote";
 
 export default function NotesPage() {
-  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+  const { isAuthenticated, logout, user } = useAuth0();
 
   const [notes, setNotes] = useState([]);
   const [noteToEdit, setNoteToEdit] = useState(null);
@@ -19,18 +21,24 @@ export default function NotesPage() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [noteIdToDelete, setNoteIdToDelete] = useState(null);
   const [trash, setTrash] = useState([]);
+  const [openTrash, setOpenTrash] = useState(false);
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
   const [groupFilter, setGroupFilter] = useState("");
   const [groupBy, setGroupBy] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-
+  const [trashEnable, setTrashEnable] = useState(false);
   const [currentNote, setCurrentNote] = useState(null);
 
   useEffect(() => {
     fetchNotes();
-    console.log(process.env.REACT_APP_BACKEND_PATH);
   }, []);
+
+  useEffect(() => {
+    if(!openTrash){
+      fetchNotes();
+    }
+  }, [openTrash]);
 
   const fetchNotes = async () => {
     const response = await axios.get(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/fetchNotes`);
@@ -52,14 +60,28 @@ export default function NotesPage() {
   };
 
   const deleteNote = async (id) => {
-    await axios.delete(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/delete/${id}`);
+    await axios.put(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/delete/${id}`);
     setNotes(notes.filter((note) => note._id !== id));
   };
 
+  const onRemove = async (id) => {
+    await axios.put(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/restoreTrash/${id}`);
+    setTrash(trash.filter((note) => note._id !== id));
+  };
+
+  useEffect(() => {
+    if (trashEnable) {
+      fetchTrashNotes();
+      setOpenTrash(true);
+    } else {
+      setOpenTrash(false);
+    }
+  }, [trashEnable]);
+
   const fetchTrashNotes = async () => {
-    console.log("hello");
     const result = await axios.get(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/fetchTrash`);
-    setTrash(result);
+    const trashed = result.data.filter((note) => note.email === user.email);
+    setTrash(trashed);
   };
 
   const handleEdit = (note) => {
@@ -87,17 +109,12 @@ export default function NotesPage() {
     });
   };
 
-  const handleDragEnd = (id, position) => {
-    const note = notes.find((note) => note._id === id);
-    updateNote(id, { ...note, position });
-  };
-
   const handleColorSelect = (color) => {
     const defaultNote = {
-      title: "New Note",
+      title: "New Notes",
       content: "This is a default note",
       color: `${color}`,
-      group: "New Note",
+      group: "Untitled",
       text: "Add text of your choice here..",
       email: user.email,
       trash: false,
@@ -170,7 +187,8 @@ export default function NotesPage() {
           <Navbar
             darkMode={darkMode}
             onColorSelect={handleColorSelect}
-            handleTrash={fetchTrashNotes}
+            setTrashEnable={setTrashEnable}
+            trashEnable={trashEnable}
           />
         </div>
         <div className={`w-full ${darkMode ? "bg-[#1E1E1E]" : "bg-gray-100"}`}>
@@ -213,7 +231,7 @@ export default function NotesPage() {
                     </div>
                     <button
                       onClick={() => logout()}
-                      className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+                      className="w-full bg-[#5169F6] hover:bg-[#5169F6] text-white py-2 rounded"
                     >
                       Logout
                     </button>
@@ -260,7 +278,6 @@ export default function NotesPage() {
                   note={note}
                   onDelete={() => onDelete(note._id)}
                   onEdit={() => handleEdit(note)}
-                  onDragEnd={handleDragEnd}
                 />
               ))}
             </div>
@@ -334,6 +351,26 @@ export default function NotesPage() {
           </div>
         </div>
       )}
+      <Modal
+        open={openTrash}
+        onClose={() => {
+          setTrashEnable(false);
+        }}
+      >
+        <ModalDialog style={{ width: "80vw" }}>
+          <ModalClose style={{ zIndex: "10" }} />
+          <div className="text-center text-5xl" >Trashed Notes</div>
+          <div className="flex flex-wrap mt-5">
+            {trash.map((note) => (
+              <TrashNote
+                key={note._id}
+                note={note}
+                onDelete={onRemove} // Pass the onRemove function directly
+              />
+            ))}
+          </div>
+        </ModalDialog>
+      </Modal>
     </div>
   );
 }
