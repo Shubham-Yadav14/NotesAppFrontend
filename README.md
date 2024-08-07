@@ -10,7 +10,7 @@ Developed By: [Madhav Nakra](https://github.com/Madddynaks), [Shubham Yadav](htt
 5. Filter Notes: Quickly find relevant information by filtering notes based on group or color.
 6. Edit Notes: Select any note card to edit its group, color, or content, ensuring your notes are always up-to-date.
 7. Group View: Consolidated Group View: Users can view all notes within a particular group in a consolidated manner.
-8. Trash Section: All the notes deleted will be put into the trash section, after 30 days they will be deleted permanently if not restored.
+8. Trash Section: All the notes deleted will be put into the trash section, you can restore your notes if deleted unintentionally or you can remove them from trash permanently.
 
 ## Tech Stack
 1. Fronted: ReactJS, Tailwind CSS, MUI v4
