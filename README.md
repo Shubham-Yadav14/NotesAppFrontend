@@ -1,6 +1,16 @@
 # Noteify
-Notes Management application which helps users to create, edit and delete notes in an interactive environment
+Notify is a powerful and intuitive note management app designed to help you organize your notes efficiently. With features like adding notes under various groups and colors, drag and drop functionality, and advanced filtering options, Notify makes it easy to manage your notes and quickly find relevant information.
 
+## Features
+1. Add Notes with Groups and Colors: Users can add notes under various groups and colors, making it easy to create organized clusters.
+2. Drag and Drop: Easily organize your notes by dragging and dropping them into different groups or changing their colors.
+3. Filter Notes: Quickly find relevant information by filtering notes based on group or color.
+4. Edit Notes: Select any note card to edit its group, color, or content, ensuring your notes are always up-to-date.
+5. Group View: Consolidated Group View: Users can view all notes within a particular group in a consolidated manner.
+
+
+## Hosted Website Link
+https://notesappfrontend-geb8.onrender.com/
 
 ## Getting Started with Create React App
 
