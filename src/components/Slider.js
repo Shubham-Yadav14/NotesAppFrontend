@@ -32,7 +32,7 @@ export default function Testimonials() {
                   }`}
                 >
                   <p className=" mb-2 font-semibold text-4xl">
-                  <span style={{ color:'#5169F6' }}>Things</span> you can do -
+                  <span style={{ color:'#5169F6' }}>Things</span> you can do
                   </p>
                   <p className="mb-3">
                     Users can add notes under various groups and colors with a drag and drop feature
