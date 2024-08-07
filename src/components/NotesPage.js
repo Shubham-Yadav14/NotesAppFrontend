@@ -89,7 +89,7 @@ export default function NotesPage() {
     const defaultNote = {
       title: "New Note",
       content: "This is a default note",
-      color: `bg-${color}`,
+      color: `${color}`,
       group: "New Note",
       text: "Add text of your choice here..",
       email: user.email,

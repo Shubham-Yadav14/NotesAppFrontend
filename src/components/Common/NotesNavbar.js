@@ -5,8 +5,8 @@ const Navbar = ({ darkMode, onColorSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const colors = [
-    'red-300', 'green-300', 'purple-300', 'blue-300', 
-    '[#FFD966]', 'pink-300', 'orange-300'
+    'bg-red-300', 'bg-green-300', 'bg-purple-300', 'bg-blue-300', 
+    'bg-[#FFD966]', 'bg-pink-300', 'bg-orange-300'
   ];
 
   const handleColorClick = (color) => {
