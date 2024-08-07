@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Noteify
+Notes Management application which helps users to create, edit and delete notes in an interactive environment
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
