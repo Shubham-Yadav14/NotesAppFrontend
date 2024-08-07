@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import logo from "./Images/logo.png";
 
 function Navbar() {
-    const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, logout , loginWithPopup } = useAuth0();
     return (
         <div className=' bg-black p-6'>
             <div className='container mx-auto flex justify-between items-center'>
@@ -13,7 +13,7 @@ function Navbar() {
                         {/* <Link to="logo"><MenuItem style={{paddingLeft: 13, textDecoration: 'none'}}> Team 1 </MenuItem></Link> */}
                         </div>
                 <div>
-                    <button className=' text-white text-m inline-flex items-center whitespace-nowrap select-none justify-center bg-[#5169F6] font-medium gap-2 rounded-3xl px-5 md:px-7 py-2 md:py-3' onClick={(e) => loginWithRedirect()}>Sign up</button>
+                    <button className=' text-white text-m inline-flex items-center whitespace-nowrap select-none justify-center bg-[#5169F6] font-medium gap-2 rounded-3xl px-5 md:px-7 py-2 md:py-3' onClick={(e) => loginWithPopup()}>Sign up</button>
                 </div>
             </div>
         </div>

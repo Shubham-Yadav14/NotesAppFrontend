@@ -1,4 +1,5 @@
 import React from "react";
+import Draggable from "react-draggable";
 
 const Note = ({ note, onDelete, onEdit, onDragEnd }) => {
   const handleDragEnd = (e) => {
@@ -6,8 +7,9 @@ const Note = ({ note, onDelete, onEdit, onDragEnd }) => {
   };
 
   return (
-    <div
-      className={`p-4 m-2 rounded ${note.color}`}
+    <Draggable>
+      <div
+      className={`p-4 m-2 hover:cursor-move rounded ${note.color}`}
       draggable
       onDragEnd={handleDragEnd}
     >
@@ -36,6 +38,7 @@ const Note = ({ note, onDelete, onEdit, onDragEnd }) => {
         </button>
       </div>
     </div>
+    </Draggable>
   );
 };
 

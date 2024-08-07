@@ -53,28 +53,29 @@ const NoteForm = ({ onSave, noteToEdit }) => {
           value={note.group}
           onChange={handleChange}
           placeholder="Group"
-          className="p-2 m-2 border"
+          className="p-2 m-2 border rounded-lg"
         />
         <textarea
           name="text"
           value={note.text}
           onChange={handleChange}
           placeholder="Text"
-          className="p-2 m-2 border"
+          className="p-2 m-2 border rounded-lg"
         />
         <select
           name="color"
           value={note.color}
           onChange={handleChange}
-          className="p-2 m-2 border"
+          className="p-2 m-2 border rounded-lg"
         >
-          <option value="bg-red-500">Red</option>
-          <option value="bg-green-500">Green</option>
-          <option value="bg-blue-500">Blue</option>
-          <option value="bg-yellow-500">Yellow</option>
-          <option value="bg-purple-500">Purple</option>
+          <option value="bg-red-300">Red</option>
+          <option value="bg-green-300">Green</option>
+          <option value="bg-blue-300">Blue</option>
+          <option value="bg-[#FFD966]">Yellow</option>
+          <option value="bg-pink-300">Pink</option>
+          <option value="bg-orange-300">Orange</option>
         </select>
-        <button type="submit" className="p-2 m-2 bg-blue-500 text-white">
+        <button type="submit" className="p-2 m-2 bg-blue-500 text-white rounded-lg">
           Save
         </button>
       </form>

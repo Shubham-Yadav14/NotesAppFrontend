@@ -10,6 +10,8 @@ import Narrow from "./components/Common/Narrow";
 const App = () => {
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
 
+  
+
   return (
     <div className="App">
       {!isAuthenticated && (

@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 
 function Landing() {
  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+ 
   return (
     <div>
         {/* <button onClick={(e) => loginWithRedirect()}>Login with Redirect</button> */}
