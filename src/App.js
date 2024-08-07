@@ -31,3 +31,18 @@ const App = () => {
 };
 
 export default App;
+
+
+// import React from 'react';
+// import DraggableDiv from "./components/DraggableDiv";
+
+// const App = () => {
+//   return (
+//     <div className="h-screen bg-gray-100 flex items-center justify-center">
+//       <DraggableDiv />
+//     </div>
+//   );
+// };
+
+// export default App;
+

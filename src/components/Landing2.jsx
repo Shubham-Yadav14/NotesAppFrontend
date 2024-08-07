@@ -8,7 +8,7 @@ import Testimonials from "./Slider";
 function Landing2() {
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-[#FFFFFF]">
         <Narrow>
           {/* <div className="flex pt-10 px-3 gap-10 mb-10 max-xl:gap-5 max-xl:px-1 max-xl:flex-col max-lg:items-center">
             <div className="w-6/12 max-lg:w-11/12 my-auto" >
@@ -30,7 +30,12 @@ function Landing2() {
               />
             </div>
           </div> */}
-          <div className="my-10 overflow-hidden">
+          <div className="pt-10 pb-20 overflow-hidden">
+          <div className="text-5xl font-medium relative top-10">
+                <div>
+                  <span className="text-[#5169F6]">Things</span> you can do
+                </div>
+              </div>
           <Testimonials/>
           </div>
           
