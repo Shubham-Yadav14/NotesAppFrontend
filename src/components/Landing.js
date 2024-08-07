@@ -15,7 +15,7 @@ function Landing() {
             <div className=' flex flex-col items-center text-center text-white h-[80%]'>
                <div className=' text-7xl max-lg:text-6xl max-md:text-5xl max-md:font-semibold 
                max-md:leading-[1.5] max-lg:leading-relaxed max-lg:pt-10 w-2/3 max-xl:w-10/12 
-               font-bold leading-normal max-sm:text-4xl max-sm:leading-[1.7]'> Capture your<br/><span className=' ' style={{ color:'#FFC470' }}>thoughts</span> effortlessly
+               font-bold leading-normal max-sm:text-4xl max-sm:leading-[1.7]'> Capture your<br/><span style={{ color:'#FFC470' }}>thoughts</span> effortlessly
                <br/> with Noteify
                </div>
                <div className=' text-4xl w-2/3 max-md:w-10/12 max-md:text-2xl max-md:my-5 font-light max-sm:text-xl'>your simple, intuitive note-taking app.
