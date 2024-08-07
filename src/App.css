@@ -31,6 +31,42 @@ body{
     background-position: bottom;
   }
 
+  @media screen and (max-width: 765px) {
+    .Narrow {
+      max-width: 680px;
+    }
+  }
+
+  .NotesNavbar{
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+
+  .NotesNavbar{
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+  @media screen and (max-width: 1024px) {
+    #shinchan{
+      background-image: url(./components/Images/Group\ 6.png);
+      background-size: cover;
+      background-position: center;
+    }
+  }
+  @media screen and (max-width: 765px) {
+    .Narrow {
+      max-width: 680px;
+    }
+  }
+  
+  #shinchan{
+    background-image: url(./components/Images/image.jpg);
+    background-size: cover;
+    background-position: bottom;
+  }
+
   .NotesNavbar{
     position: sticky;
     top: 0;
