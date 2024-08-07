@@ -45,10 +45,10 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div className="w-8/12 max-lg:w-full mx-3">
+              <div className="w-7/12 max-lg:w-full mx-3">
                 <img
                   src={image1}
-                  className={`h-[70vh] ${animate ? "" : "slide-in-testimonials"}`}
+                  className={`h-[50vh] ${animate ? "" : "slide-in-testimonials"}`}
                 />
               </div>
             </div>
@@ -76,10 +76,10 @@ export default function Testimonials() {
                 </div>
               </div>
 
-              <div className="w-8/12 max-lg:w-full mx-3">
+              <div className="w-7/12 max-lg:w-full mx-3">
                 <img
                   src={image2}
-                  className={`h-[70vh] ${animate ? "" : "slide-in-testimonials"}`}
+                  className={`h-[50vh] ${animate ? "" : "slide-in-testimonials"}`}
                 />
               </div>
             </div>
