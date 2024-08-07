@@ -70,6 +70,10 @@ export default function NotesPage() {
     await axios.put(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/delete/${id}`);
     setNotes(notes.filter((note) => note._id !== id));
   };
+  const deleteTrash = async (id) => {
+    await axios.delete(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/removeTrash/${id}`);
+    setTrash(trash.filter((note) => note._id !== id));
+  };
 
   const onRemove = async (id) => {
     await axios.put(`${process.env.REACT_APP_BACKEND_PATH}/api/notes/restoreTrash/${id}`);
@@ -373,7 +377,8 @@ export default function NotesPage() {
                 <TrashNote
                   key={note._id}
                   note={note}
-                  onDelete={onRemove} // Pass the onRemove function directly
+                  onRemove={onRemove} 
+                  onDelete={deleteTrash}
                 />
               ))}
             </div>
