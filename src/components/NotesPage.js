@@ -90,7 +90,7 @@ export default function NotesPage() {
       title: "New Note",
       content: "This is a default note",
       color: `bg-${color}`,
-      group: "New Note",
+      group: "Untitle Note",
       text: "Add text of your choice here..",
       email: user.email,
     };
@@ -207,7 +207,7 @@ export default function NotesPage() {
                     </div>
                     <button
                       onClick={() => logout()}
-                      className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+                      className="w-full bg-[#5169F6] hover:bg-[#5169F6] text-white py-2 rounded"
                     >
                       Logout
                     </button>
