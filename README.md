@@ -19,6 +19,6 @@ Developed By: [Madhav Nakra](https://github.com/Madddynaks), [Shubham Yadav](htt
 
 
 ## Hosted Website Link
-[https://notesappfrontend-geb8.onrender.com/](https://notesappfrontend-1.onrender.com/)
+[https://notesappfrontend-1.onrender.com/](https://notesappfrontend-1.onrender.com/)
 
 
