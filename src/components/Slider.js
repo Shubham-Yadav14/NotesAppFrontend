@@ -21,7 +21,7 @@ export default function Testimonials() {
 
   return (
     <Narrow class="my-10 ">
-      <div>
+      <div className=" p-[150px]">
         <div>
           {current === 1 && (
             <div className="flex max-lg:flex-col">

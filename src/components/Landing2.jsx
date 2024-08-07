@@ -42,10 +42,10 @@ function Landing2() {
               Members Directory
             </div>
             <div className="grid grid-cols-4  gap-10 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:p-20">
-            <div className="bg-[#80CAFF] flex p-10 max-xl:px-4 flex-col items-center">
-                <div className="bg-white p-3 w-full">
+            <div className="bg-[#80CAFF] flex p-10 max-xl:px-4 flex-col items-center rounded-2xl">
+                <div className="bg-white p-3 w-full rounded-xl">
                   {" "}
-                  <img
+                  <img className=" rounded-xl"
                     src="https://ik.imagekit.io/ouhkc1hsep/New%20Folder/Devesh.png?updatedAt=1723024711755"
                     alt=""
                   />
@@ -75,10 +75,10 @@ function Landing2() {
                   </div>
                 </div>
               </div>
-              <div className="bg-[#FFAFA3] flex p-10 max-xl:px-4 flex-col items-center">
-                <div className="bg-white p-3 w-full">
+              <div className="bg-[#FFAFA3] flex p-10 max-xl:px-4 flex-col items-center rounded-2xl">
+                <div className="bg-white p-3 w-full rounded-xl">
                   {" "}
-                  <img
+                  <img className=" rounded-xl"
                     src="https://ik.imagekit.io/ouhkc1hsep/New%20Folder/Dum-Aloo2.jpg?updatedAt=1722985078910"
                     alt=""
                   />
@@ -107,9 +107,9 @@ function Landing2() {
                   </div>
                 </div>
               </div>
-              <div className="bg-[#DEB8FF] flex p-10  max-xl:px-4 flex-col items-center">
-                <div className="bg-white p-3 w-full">
-                  <img
+              <div className="bg-[#DEB8FF] flex p-10  max-xl:px-4 flex-col items-center rounded-2xl">
+                <div className="bg-white p-3 w-full rounded-xl">
+                  <img className=" rounded-xl"
                     src="https://ik.imagekit.io/ouhkc1hsep/New%20Folder/WhatsApp%20Image%202024-07-27%20at%2017.56.25_bcaf4d0c.jpg?updatedAt=1722983948064"
                     alt=""
                   />
@@ -139,8 +139,8 @@ function Landing2() {
                   </div>
                 </div>
               </div>
-              <div className="bg-[#FFD966] flex p-10  max-xl:px-4 flex-col items-center">
-                <div className="bg-white p-3 w-full "> <img src="https://ik.imagekit.io/ouhkc1hsep/New%20Folder/yadav3.jpg?updatedAt=1723023727079" alt="" /></div>
+              <div className="bg-[#FFD966] flex p-10  max-xl:px-4 flex-col items-center rounded-2xl">
+                <div className="bg-white p-3 w-full rounded-xl"> <img className=" rounded-xl" src="https://ik.imagekit.io/ouhkc1hsep/New%20Folder/yadav3.jpg?updatedAt=1723023727079" alt="" /></div>
                 <div className=" w-full text-center py-2 max-xl:ml-5 max-md:text-xs">
                   <div>Shubham Yadav</div>
                   <div className="text-sm text-wrap py-1 max-md:text-xs">
