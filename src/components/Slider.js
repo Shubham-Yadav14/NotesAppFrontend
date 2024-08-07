@@ -20,21 +20,21 @@ export default function Testimonials() {
   }, [current]);
 
   return (
-    <Narrow class="my-10 ">
-      <div>
+    <Narrow class="my-10">
+      <div className="py-[138px]">
         <div>
           {current === 1 && (
-            <div className="flex max-lg:flex-col">
+            <div className="flex max-lg:flex-col rounded-md">
               <div className="w-4/12 max-lg:w-full my-auto">
                 <div
-                  className={` border rounded-lg p-5 text-2xl leading-normal ${
+                  className={`  p-5 text-2xl leading-normal ${
                     animate ? "slide-out-left" : "slide-in-right"
                   }`}
                 >
-                  <p className="mb-2">
-                    Users can toggle dark mode and light mode as per their convenience.
+                  <p className=" mb-2 font-semibold text-4xl">
+                    Things you can do -
                   </p>
-                  <p className="mb-2">
+                  <p className="mb-3">
                     Users can add notes under various groups and colors with a drag and drop feature
                     to easily create clusters.
                   </p>
@@ -57,18 +57,21 @@ export default function Testimonials() {
             <div className="flex max-lg:flex-col">
               <div className="w-4/12 max-lg:w-full my-auto">
                 <div
-                  className={` border rounded-lg p-5 text-2xl ${
+                  className={` p-5 text-2xl ${
                     animate ? "slide-out-left" : "slide-in-right"
                   }`}
                 >
-                  <p className="mb-2">
+                  <p className=" mb-2 font-semibold text-4xl">
+                    Things you can do -
+                  </p>
+                  <p className=" mb-3">
                     Users can select any card and can edit the group, color to which they belong
                   </p>
-                  <p>
+                  <p className=" mb-3">
                     User can also edit the content of the selected note.
                   </p>
                   <p className="mb-2">
-                    On deleting notes will move to the trash where they can be viewed for the next 30 days.
+                    On deleting notes will move to the trash.
                   </p>
                 </div>
               </div>
