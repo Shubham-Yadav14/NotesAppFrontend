@@ -1,6 +1,5 @@
 # Noteify
 Notify is a powerful and intuitive note management app designed to help you organize your notes efficiently. With features like adding notes under various groups and colors, drag and drop functionality, and advanced filtering options, Notify makes it easy to manage your notes and quickly find relevant information.
-Developed By: https://github.com/Madddynaks , 
 
 ## Features
 1. Add Notes with Groups and Colors: Users can add notes under various groups and colors, making it easy to create organized clusters.
