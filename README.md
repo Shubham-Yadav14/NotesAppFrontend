@@ -14,7 +14,7 @@ Developed By: [Madhav Nakra](https://github.com/Madddynaks), [Shubham Yadav](htt
 
 ## Tech Stack
 1. Fronted: ReactJS, Tailwind CSS, MUI v4
-2. Backend: NodeJS, ExpressJS
+2. Backend: NodeJS, ExpressJS 
 3. Database: MongoDB
 
 
