@@ -36,7 +36,7 @@ function Landing2() {
         </Narrow>
       </div>
       <div className="bg-[#1E1E1E]  overflow-hidden">
-        <Narrow>
+        {/* <Narrow>
           <div className="py-[160px]">
             <div className="text-6xl text-center font-medium pb-8 mx:md:pb-4 text-white mb-10">
               Members Directory
@@ -168,7 +168,7 @@ function Landing2() {
               </div>
             </div>
           </div>
-        </Narrow>
+        </Narrow> */}
         <div className="mt-96 text-6xl relative -top-20 text-[#FFFFFF] opacity-70 text-center scale-[750%] font-semibold max-2xl:scale-[700%] max-xl:scale-[600%] max-lg:scale-[490%] max-md:scale-[375%] max-sm:scale-[250%] ">
           noteify
         </div>
